@@ -37,7 +37,6 @@ Our coding standards prioritize **readability and consistency** over strict adhe
 - Allow pragmatic patterns like short ternary operators and assignments in conditions
 - Enforce code quality while allowing team-specific style choices
 
----
 
 ## Installation
 
@@ -75,7 +74,6 @@ npm install --save-dev github:cosmicgiant/coding-standards#main @wordpress/eslin
 npm install --save-dev github:cosmicgiant/coding-standards#main eslint
 ```
 
----
 
 ## Usage - WordPress Projects
 
@@ -141,7 +139,6 @@ Run ESLint:
 npm run lint:js
 ```
 
----
 
 ## Usage - Laravel Projects
 
@@ -199,7 +196,6 @@ Add composer scripts:
 }
 ```
 
----
 
 ## IDE Integration
 
@@ -272,7 +268,6 @@ Since our standards use tabs, configure PHPStorm accordingly:
 - **Alt + Enter** (Windows/Linux) or **⌥ + Enter** (Mac): Show quick-fixes for the current violation
 - Right-click → **External Tools** → **PHPCBF**: Auto-fix entire file
 
----
 
 ### VS Code
 
@@ -326,7 +321,6 @@ To automatically fix issues when you save:
 - **Right-click** → **Format Document** to auto-fix (if phpcbf extension is installed)
 - Use **Cmd/Ctrl + Shift + M** to open the Problems panel
 
----
 
 ### Other IDEs
 
@@ -364,7 +358,6 @@ let g:ale_php_phpcbf_executable = './vendor/bin/phpcbf'
 let g:ale_php_phpcbf_standard = './phpcs.xml'
 ```
 
----
 
 ### Troubleshooting IDE Integration
 
@@ -395,7 +388,6 @@ let g:ale_php_phpcbf_standard = './phpcs.xml'
 - Increasing PHP memory limit in phpcs configuration
 - Using `phpcbf` to auto-fix issues in bulk first
 
----
 
 ## GitHub Actions Integration
 
@@ -519,7 +511,6 @@ on:
       - '**.js'
 ```
 
----
 
 ## Customization
 
@@ -556,7 +547,6 @@ To disable a rule entirely:
 </rule>
 ```
 
----
 
 ## Key Differences: WordPress vs Laravel
 
@@ -575,7 +565,6 @@ To disable a rule entirely:
 | **Class Organization** | Not enforced | **Strict** (via Slevomat ClassStructure) |
 | **ESLint Base** | WordPress plugin | eslint:recommended |
 
----
 
 ## Design Decisions
 
@@ -606,7 +595,6 @@ Slevomat Coding Standard provides advanced PHP rules that leverage modern PHP 8+
 - Trailing commas
 - Null-safe operators
 
----
 
 ## Development
 
@@ -633,7 +621,6 @@ npx eslint --config packages/eslint-config-wordpress/.eslintrc.js path/to/file.j
 npx eslint --config packages/eslint-config-laravel/.eslintrc.js path/to/file.js
 ```
 
----
 
 ## Contributing
 
@@ -643,13 +630,11 @@ npx eslint --config packages/eslint-config-laravel/.eslintrc.js path/to/file.js
 4. Test with both WordPress and Laravel projects
 5. Submit a pull request
 
----
 
 ## License
 
 MIT License - Copyright (c) CosmicGiant
 
----
 
 ## Support
 
@@ -657,7 +642,6 @@ For issues or questions:
 - Open an issue on GitHub
 - Contact the development team at CosmicGiant
 
----
 
 ## Resources
 
