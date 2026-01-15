@@ -560,6 +560,7 @@ To disable a rule entirely:
 | **Array Syntax** | Flexible (`array()` or `[]`) | **Short only** (`[]`) |
 | **Array Alignment** | **Required** (auto-fixable) | **Required** (auto-fixable) |
 | **Trailing Commas** | Not required | **Required** in multi-line arrays |
+| **Doc Block Formatting** | Basic spacing required | **Strict** (with tag grouping) |
 | **Import Sorting** | Not enforced | **Alphabetical** (required) |
 | **Null-Safe Operator** | N/A | Suggested (PHP 8.0+) |
 | **WordPress-Specific Rules** | Extensive (with exclusions) | None |
@@ -614,6 +615,91 @@ Benefits:
 - **Consistent**: All arrays follow the same visual pattern
 
 Both WordPress and Laravel standards enforce this rule.
+
+### Documentation (Doc Block) Formatting
+
+We enforce proper doc block formatting to improve code documentation readability and consistency.
+
+#### Function Parentheses Spacing
+
+Functions must have spaces after the opening parenthesis and before the closing parenthesis:
+
+```php
+// Required format
+function my_function( $arg1, $arg2 ) {
+	return $arg1 + $arg2;
+}
+
+// Not allowed
+function my_function($arg1, $arg2) {
+	return $arg1 + $arg2;
+}
+```
+
+This applies to both function declarations and function calls.
+
+#### Doc Block Spacing (WordPress)
+
+WordPress projects require:
+- **Empty line after the description** (before tags)
+- **Aligned parameter types and names**
+
+```php
+// Required format
+/**
+ * Calculate the sum of two numbers.
+ *
+ * @param int $num1 The first number.
+ * @param int $num2 The second number.
+ * @return int The sum.
+ */
+function calculate_sum( $num1, $num2 ) {
+	return $num1 + $num2;
+}
+```
+
+#### Doc Block Spacing (Laravel)
+
+Laravel projects have stricter doc block requirements:
+- **Empty line after the description** (before tags)
+- **Empty line after @since/@deprecated block**
+- **Empty line after @param block** (before @return)
+- **Aligned parameter types and names**
+
+```php
+// Required format
+/**
+ * Calculate the sum of two numbers.
+ *
+ * @since 1.0.0
+ *
+ * @param int $num1 The first number.
+ * @param int $num2 The second number.
+ *
+ * @return int The sum.
+ */
+function calculateSum( int $num1, int $num2 ): int {
+	return $num1 + $num2;
+}
+
+// Not allowed (missing empty lines between tag groups)
+/**
+ * Calculate the sum of two numbers.
+ * @since 1.0.0
+ * @param int $num1 The first number.
+ * @param int $num2 The second number.
+ * @return int The sum.
+ */
+function calculateSum( int $num1, int $num2 ): int {
+	return $num1 + $num2;
+}
+```
+
+Benefits:
+- **Better readability**: Tag groups are visually separated
+- **Easier to scan**: Clear sections for different types of documentation
+- **Consistent style**: All doc blocks follow the same pattern
+- **Auto-fixable**: Many spacing issues can be automatically fixed with `phpcbf`
 
 ### Why Slevomat for Laravel?
 

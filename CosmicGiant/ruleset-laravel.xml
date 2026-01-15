@@ -161,6 +161,43 @@
 	<rule ref="PSR2.Methods.FunctionClosingBrace.SpacingBeforeClose"/>
 
 	<!-- ==================== -->
+	<!-- Documentation / Comments -->
+	<!-- ==================== -->
+	<!-- Require proper doc block formatting -->
+	<rule ref="Generic.Commenting.DocComment">
+		<exclude name="Generic.Commenting.DocComment.MissingShort"/>
+		<exclude name="Generic.Commenting.DocComment.TagValueIndent"/>
+		<exclude name="Generic.Commenting.DocComment.ParamNotFirst"/>
+	</rule>
+
+	<!-- Function doc blocks with proper spacing -->
+	<rule ref="Squiz.Commenting.FunctionComment">
+		<exclude name="Squiz.Commenting.FunctionComment.Missing"/>
+		<exclude name="Squiz.Commenting.FunctionComment.MissingParamComment"/>
+		<exclude name="Squiz.Commenting.FunctionComment.EmptyThrows"/>
+		<exclude name="Squiz.Commenting.FunctionComment.IncorrectTypeHint"/>
+		<exclude name="Squiz.Commenting.FunctionComment.InvalidReturn"/>
+		<exclude name="Squiz.Commenting.FunctionComment.TypeHintMissing"/>
+	</rule>
+
+	<!-- Class doc blocks -->
+	<rule ref="Squiz.Commenting.ClassComment">
+		<exclude name="Squiz.Commenting.ClassComment.Missing"/>
+		<exclude name="Squiz.Commenting.ClassComment.TagNotAllowed"/>
+	</rule>
+
+	<!-- Variable doc blocks -->
+	<rule ref="Squiz.Commenting.VariableComment">
+		<exclude name="Squiz.Commenting.VariableComment.Missing"/>
+		<exclude name="Squiz.Commenting.VariableComment.TagNotAllowed"/>
+	</rule>
+
+	<!-- Inline comment formatting -->
+	<rule ref="Squiz.Commenting.InlineComment">
+		<exclude name="Squiz.Commenting.InlineComment.InvalidEndChar"/>
+	</rule>
+
+	<!-- ==================== -->
 	<!-- Array Syntax -->
 	<!-- ==================== -->
 	<!-- Use short array syntax -->
