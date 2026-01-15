@@ -1,0 +1,15 @@
+# Composer dependencies
+/vendor/
+
+# npm dependencies
+/node_modules/
+
+# Composer lock file
+composer.lock
+
+# macOS
+.DS_Store
+
+# IDE
+/.idea
+/.vscode

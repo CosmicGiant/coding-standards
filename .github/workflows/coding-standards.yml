@@ -1,0 +1,133 @@
+name: Reusable Coding Standards
+
+on:
+  workflow_call:
+    inputs:
+      project-type:
+        description: 'Project type: wordpress or laravel'
+        required: true
+        type: string
+      php-version:
+        description: 'PHP version to use (defaults to 7.4 for WordPress, 8.4 for Laravel)'
+        required: false
+        type: string
+        default: ''
+      node-version-file:
+        description: 'Path to node version file'
+        required: false
+        type: string
+        default: '.nvmrc'
+      run-javascript-standards:
+        description: 'Whether to run JavaScript coding standards'
+        required: false
+        type: boolean
+        default: true
+      phpcs-path:
+        description: 'Custom PHPCS binary path (defaults to vendor/bin/phpcs)'
+        required: false
+        type: string
+        default: 'vendor/bin/phpcs'
+
+jobs:
+  phpcs:
+    name: PHP coding standards
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'pull_request' }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Determine PHP version
+        id: php-version
+        run: |
+          if [ "${{ inputs.php-version }}" != "" ]; then
+            echo "version=${{ inputs.php-version }}" >> $GITHUB_OUTPUT
+          elif [ "${{ inputs.project-type }}" == "laravel" ]; then
+            echo "version=8.4" >> $GITHUB_OUTPUT
+          else
+            echo "version=7.4" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ steps.php-version.outputs.version }}
+          coverage: none
+          tools: composer, cs2pr
+
+      - name: Log debug information
+        run: |
+          php --version
+          composer --version
+
+      - name: Install Composer dependencies
+        uses: ramsey/composer-install@v3
+        with:
+          composer-options: "--no-progress --no-ansi --no-interaction"
+
+      - name: Log PHPCS debug information
+        run: ${{ inputs.phpcs-path }} -i
+
+      - id: files
+        uses: jitterbit/get-changed-files@v1
+        continue-on-error: true
+
+      - name: Create the PHPCS file list
+        run: |
+          for changed_file in ${{ steps.files.outputs.added_modified }}; do
+            printf ${changed_file}"\n" >> $GITHUB_WORKSPACE/file-list
+          done
+
+      - name: Determine PHPCS ruleset
+        id: ruleset
+        run: |
+          if [ "${{ inputs.project-type }}" == "laravel" ]; then
+            echo "path=./vendor/cosmicgiant/coding-standards/CosmicGiant/ruleset-laravel.xml" >> $GITHUB_OUTPUT
+          else
+            echo "path=./vendor/cosmicgiant/coding-standards/CosmicGiant/ruleset-wordpress.xml" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Run PHPCS on all changed files
+        continue-on-error: true
+        run: |
+          ${{ inputs.phpcs-path }} --standard=${{ steps.ruleset.outputs.path }} --report-full --report-checkstyle=./phpcs-report.xml -n --file-list=$GITHUB_WORKSPACE/file-list
+
+      - name: Show PHPCS results in PR
+        run: cs2pr ./phpcs-report.xml
+
+      - name: Ensure version-controlled files are not modified during the tests
+        run: git diff --exit-code
+
+  eslint:
+    name: JavaScript coding standards
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'pull_request' && inputs.run-javascript-standards }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: ${{ inputs.node-version-file }}
+          cache: 'npm'
+
+      - name: Log debug information
+        run: |
+          node --version
+          npm --version
+          git --version
+
+      - name: Install npm dependencies
+        run: npm install
+
+      - name: Run ESLint on changed files
+        run: |
+          npx lint-staged --no-stash --diff="origin/${GITHUB_BASE_REF}...origin/${GITHUB_HEAD_REF}"
+
+      - name: Ensure version-controlled files are not modified during the tests
+        run: git diff --exit-code

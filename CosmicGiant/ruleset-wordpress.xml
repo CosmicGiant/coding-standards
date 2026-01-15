@@ -1,0 +1,146 @@
+<?xml version="1.0"?>
+<ruleset name="CosmicGiant WordPress Coding Standards">
+	<description>Custom WordPress coding standards based on WordPress-Core with company preferences</description>
+
+	<!-- Check for cross-version support for PHP 7.4 and higher. -->
+	<config name="testVersion" value="7.4-"/>
+
+	<!-- Only scan PHP files. -->
+	<arg name="extensions" value="php"/>
+
+	<!-- Whenever possible, cache the scan results and re-use those for unchanged files on the next scan. -->
+	<arg name="cache"/>
+
+	<!-- Set the memory limit to 256M.
+		For most standard PHP configurations, this means the memory limit will temporarily be raised.
+		Ref: https://github.com/squizlabs/PHP_CodeSniffer/wiki/Advanced-Usage#specifying-phpini-settings
+	-->
+	<ini name="memory_limit" value="256M"/>
+
+	<!-- Check up to 20 files simultaneously. -->
+	<arg name="parallel" value="20"/>
+
+	<!-- Show sniff codes in all reports. -->
+	<arg value="ps"/>
+
+	<!-- Exclude patterns -->
+	<exclude-pattern>/node_modules/*</exclude-pattern>
+	<exclude-pattern>/vendor/*</exclude-pattern>
+	<exclude-pattern>/tmp/</exclude-pattern>
+	<!-- We may want to include tests later. -->
+	<exclude-pattern>/tests/*</exclude-pattern>
+
+	<!-- Base Rules -->
+	<rule ref="WordPress-Core">
+		<!-- Definitely should not be added back -->
+		<exclude name="Generic.ControlStructures.InlineControlStructure.NotAllowed"/>
+		<exclude name="Universal.Arrays.DisallowShortArraySyntax"/>
+		<exclude name="Universal.Operators.DisallowShortTernary"/>
+		<exclude name="WordPress.CodeAnalysis.AssignmentInCondition.Found"/>
+		<exclude name="WordPress.WhiteSpace.ControlStructureSpacing.BlankLineAfterEnd"/>
+
+		<!-- Should maybe Add Back Later -->
+		<exclude name="WordPress.WP.I18n.MissingTranslatorsComment"/>
+		<exclude name="PEAR.Functions.FunctionCallSignature.ContentAfterOpenBracket"/>
+		<exclude name="PEAR.Functions.FunctionCallSignature.CloseBracketLine"/>
+		<exclude name="PEAR.Functions.FunctionCallSignature.MultipleArguments"/>
+	</rule>
+
+	<rule ref="Generic.CodeAnalysis.EmptyPHPStatement"/>
+
+	<!-- Allow the use of: $a = $b = 1; -->
+	<rule ref="Squiz.PHP.DisallowMultipleAssignments.FoundInControlStructure">
+		<type>warning</type>
+	</rule>
+	<rule ref="Squiz.PHP.DisallowMultipleAssignments.Found">
+		<type>warning</type>
+	</rule>
+
+	<!-- We use extra lines for better readability, turn the following rules into warnings. -->
+	<rule ref="PSR2.ControlStructures.SwitchDeclaration.BodyOnNextLineCASE">
+		<type>warning</type>
+	</rule>
+	<rule ref="PSR2.ControlStructures.SwitchDeclaration.BodyOnNextLineDEFAULT">
+		<type>warning</type>
+	</rule>
+	<rule ref="PSR2.Methods.FunctionClosingBrace.SpacingBeforeClose">
+		<type>warning</type>
+	</rule>
+	<rule ref="PSR2.Classes.ClassDeclaration.CloseBraceAfterBody">
+		<type>warning</type>
+	</rule>
+
+	<!-- We like one liners, turn the following rules into warnings. -->
+	<rule ref="WordPress.Arrays.ArrayDeclarationSpacing.AssociativeArrayFound">
+		<type>warning</type>
+	</rule>
+	<rule ref="Generic.Functions.OpeningFunctionBraceKernighanRitchie.ContentAfterBrace">
+		<type>warning</type>
+	</rule>
+	<rule ref="Generic.Formatting.DisallowMultipleStatements.SameLine">
+		<type>warning</type>
+	</rule>
+
+	<!-- These rules are being set as warnings instead of errors, so we can error check the entire codebase. -->
+	<rule ref="WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase">
+		<type>warning</type>
+	</rule>
+	<rule ref="WordPress.DB.PreparedSQL.InterpolatedNotPrepared">
+		<type>warning</type>
+	</rule>
+	<rule ref="WordPress.DB.PreparedSQL.NotPrepared">
+		<type>warning</type>
+	</rule>
+	<rule ref="WordPress.Files.FileName.InvalidClassFileName">
+		<type>warning</type>
+	</rule>
+
+	<!-- Enforce no parenthesis for language constructs, and only one space immediately after.
+		Including this rule is temporary until it is moved from the WordPress-Extra ruleset to
+		the WordPress-Core ruleset upstream.
+	-->
+	<rule ref="PEAR.Files.IncludingFile.BracketsNotRequired">
+		<type>warning</type>
+	</rule>
+	<rule ref="PEAR.Files.IncludingFile.UseRequire">
+		<type>warning</type>
+	</rule>
+	<rule ref="PEAR.Files.IncludingFile.UseRequireOnce">
+		<type>warning</type>
+	</rule>
+	<rule ref="Squiz.Functions.MultiLineFunctionDeclaration.SpaceAfterFunction">
+		<type>warning</type>
+	</rule>
+	<rule ref="Generic.WhiteSpace.IncrementDecrementSpacing.SpaceAfterIncrement">
+		<type>warning</type>
+	</rule>
+	<rule ref="Generic.WhiteSpace.LanguageConstructSpacing"/>
+
+	<!-- WordPress extended rules -->
+	<rule ref="WordPress">
+		<!-- This is CosmicGiant coding standards. -->
+		<exclude name="WordPress.PHP.YodaConditions" />
+		<exclude name="Universal.Operators.StrictComparisons"/>
+		<exclude name="WordPress.PHP.StrictInArray"/>
+		<exclude name="WordPress.NamingConventions.ValidVariableName"/>
+
+		<!-- Assignments in while conditions are a valid method of looping over iterables. -->
+		<exclude name="WordPress.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition" />
+	</rule>
+
+	<!-- PHP Compatibility -->
+	<rule ref="PHPCompatibilityWP"/>
+
+	<!-- Throw undefined variable errors https://github.com/sirbrillig/phpcs-variable-analysis -->
+	<rule ref="VariableAnalysis"/>
+
+	<!-- Import Detection: https://github.com/sirbrillig/phpcs-import-detection -->
+	<rule ref="ImportDetection"/>
+	<rule ref="ImportDetection.Imports.RequireImports">
+		<properties>
+			<property name="ignoreWordPressSymbols" value="true"/>
+			<property name="ignoreUnimportedSymbols" value="/^(rg\S+|cg\S+|CG\S+|fg\S+|FG\S+)$/"/>
+		</properties>
+	</rule>
+
+</ruleset>
