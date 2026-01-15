@@ -558,6 +558,7 @@ To disable a rule entirely:
 | **Spacing in Parentheses** | Yes (via custom rules) | Yes (via custom rules) |
 | **Type Hints** | Optional | **Required** (enforced via Slevomat) |
 | **Array Syntax** | Flexible (`array()` or `[]`) | **Short only** (`[]`) |
+| **Array Alignment** | **Required** (auto-fixable) | **Required** (auto-fixable) |
 | **Trailing Commas** | Not required | **Required** in multi-line arrays |
 | **Import Sorting** | Not enforced | **Alphabetical** (required) |
 | **Null-Safe Operator** | N/A | Suggested (PHP 8.0+) |
@@ -585,6 +586,34 @@ We set many formatting preferences as warnings to allow flexibility during devel
 - **Yoda Conditions**: Not enforced (`$var === 5` instead of `5 === $var`)
 - **Strict Comparisons**: Allowed loose comparisons where appropriate
 - **Variable Naming**: More flexible than strict snake_case
+
+### Why Array Alignment?
+
+We require array items to be aligned for better readability and consistency:
+
+```php
+// Required format
+$config = [
+	'name'        => 'Test',
+	'description' => 'This is a longer description',
+	'enabled'     => true,
+];
+
+// Not allowed (unaligned)
+$config = [
+	'name' => 'Test',
+	'description' => 'This is a longer description',
+	'enabled' => true,
+];
+```
+
+Benefits:
+- **Easier to scan**: Aligned values are visually grouped together
+- **Easier to diff**: Changes to array values don't affect surrounding lines
+- **Auto-fixable**: `phpcbf` can automatically align arrays for you
+- **Consistent**: All arrays follow the same visual pattern
+
+Both WordPress and Laravel standards enforce this rule.
 
 ### Why Slevomat for Laravel?
 

@@ -116,6 +116,7 @@
 		<properties>
 			<property name="groups" type="array">
 				<element value="uses"/>
+				<element value="enum cases"/>
 				<element value="public constants"/>
 				<element value="protected constants"/>
 				<element value="private constants"/>
@@ -127,10 +128,19 @@
 				<element value="private properties"/>
 				<element value="constructor"/>
 				<element value="static constructors"/>
+				<element value="destructor"/>
+				<element value="public static final methods"/>
+				<element value="public static abstract methods"/>
 				<element value="public static methods"/>
+				<element value="protected static final methods"/>
+				<element value="protected static abstract methods"/>
 				<element value="protected static methods"/>
 				<element value="private static methods"/>
+				<element value="public final methods"/>
+				<element value="public abstract methods"/>
 				<element value="public methods"/>
+				<element value="protected final methods"/>
+				<element value="protected abstract methods"/>
 				<element value="protected methods"/>
 				<element value="private methods"/>
 				<element value="magic methods"/>
@@ -155,6 +165,19 @@
 	<!-- ==================== -->
 	<!-- Use short array syntax -->
 	<rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
+
+	<!-- Align array values for better readability -->
+	<rule ref="WordPress.Arrays.MultipleStatementAlignment">
+		<properties>
+			<property name="maxColumn" value="1000"/>
+			<property name="ignoreNewlines" value="false"/>
+		</properties>
+	</rule>
+	<rule ref="Generic.Formatting.MultipleStatementAlignment">
+		<properties>
+			<property name="maxPadding" value="1000"/>
+		</properties>
+	</rule>
 
 	<!-- ==================== -->
 	<!-- Control Structures -->
@@ -208,7 +231,10 @@
 	<!-- ==================== -->
 	<!-- PHP Compatibility -->
 	<!-- ==================== -->
-	<rule ref="PHPCompatibility"/>
+	<rule ref="PHPCompatibility">
+		<!-- Allow $this in enum methods (valid in PHP 8.1+) -->
+		<exclude name="PHPCompatibility.Variables.ForbiddenThisUseContexts.OutsideObjectContext"/>
+	</rule>
 
 	<!-- ==================== -->
 	<!-- Variable Analysis -->
@@ -223,7 +249,9 @@
 	<rule ref="ImportDetection"/>
 	<rule ref="ImportDetection.Imports.RequireImports">
 		<properties>
-			<property name="ignoreUnimportedSymbols" value="/^(rg\S+|cg\S+|CG\S+|fg\S+|FG\S+)$/"/>
+			<!-- Ignore company prefixes and common Laravel helper functions -->
+			<!-- Enum cases cannot be imported and are referenced like ClassName::CASE_NAME -->
+			<property name="ignoreUnimportedSymbols" value="/^(rg\S+|cg\S+|CG\S+|fg\S+|FG\S+|[A-Z_]+|env|config|app|storage_path|base_path|resource_path|public_path|database_path|lang_path|view|route|url|asset|mix|old|trans|__|session|request|response|redirect|abort|cache|collect|dd|dump|info|logger|now|today|optional|tap|throw_if|throw_unless|validator|bcrypt|hash|encrypt|decrypt|auth|gate|policy|value|isValid)$/"/>
 		</properties>
 	</rule>
 

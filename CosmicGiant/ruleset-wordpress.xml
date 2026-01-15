@@ -81,6 +81,14 @@
 		<type>warning</type>
 	</rule>
 
+	<!-- Align array values for better readability -->
+	<rule ref="WordPress.Arrays.MultipleStatementAlignment">
+		<properties>
+			<property name="maxColumn" value="1000"/>
+			<property name="ignoreNewlines" value="false"/>
+		</properties>
+	</rule>
+
 	<!-- These rules are being set as warnings instead of errors, so we can error check the entire codebase. -->
 	<rule ref="WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase">
 		<type>warning</type>
