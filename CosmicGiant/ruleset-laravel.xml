@@ -285,13 +285,15 @@
 	<!-- ==================== -->
 	<!-- Import Detection -->
 	<!-- ==================== -->
-	<!-- Import Detection: https://github.com/sirbrillig/phpcs-import-detection -->
-	<rule ref="ImportDetection"/>
-	<rule ref="ImportDetection.Imports.RequireImports">
+	<!-- Require use statements for referenced names (replaces phpcs-import-detection) -->
+	<rule ref="SlevomatCodingStandard.Namespaces.ReferenceUsedNamesOnly">
 		<properties>
-			<!-- Ignore company prefixes and common Laravel helper functions -->
-			<!-- Enum cases cannot be imported and are referenced like ClassName::CASE_NAME -->
-			<property name="ignoreUnimportedSymbols" value="/^(rg\S+|cg\S+|CG\S+|fg\S+|FG\S+|[A-Z_]+|env|config|app|storage_path|base_path|resource_path|public_path|database_path|lang_path|view|route|url|asset|mix|old|trans|__|session|request|response|redirect|abort|cache|collect|dd|dump|info|logger|now|today|optional|tap|throw_if|throw_unless|validator|bcrypt|hash|encrypt|decrypt|auth|gate|policy|value|isValid)$/"/>
+			<property name="allowFallbackGlobalFunctions" value="true"/>
+			<property name="allowFallbackGlobalConstants" value="true"/>
+			<property name="allowFullyQualifiedGlobalFunctions" value="true"/>
+			<property name="allowFullyQualifiedGlobalConstants" value="true"/>
+			<property name="allowFullyQualifiedGlobalClasses" value="true"/>
+			<property name="allowFullyQualifiedExceptions" value="true"/>
 		</properties>
 	</rule>
 

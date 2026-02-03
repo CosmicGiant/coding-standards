@@ -142,12 +142,15 @@
 	<!-- Throw undefined variable errors https://github.com/sirbrillig/phpcs-variable-analysis -->
 	<rule ref="VariableAnalysis"/>
 
-	<!-- Import Detection: https://github.com/sirbrillig/phpcs-import-detection -->
-	<rule ref="ImportDetection"/>
-	<rule ref="ImportDetection.Imports.RequireImports">
+	<!-- Require use statements for referenced names (replaces phpcs-import-detection) -->
+	<rule ref="SlevomatCodingStandard.Namespaces.ReferenceUsedNamesOnly">
 		<properties>
-			<property name="ignoreWordPressSymbols" value="true"/>
-			<property name="ignoreUnimportedSymbols" value="/^(rg\S+|cg\S+|CG\S+|fg\S+|FG\S+)$/"/>
+			<property name="allowFallbackGlobalFunctions" value="true"/>
+			<property name="allowFallbackGlobalConstants" value="true"/>
+			<property name="allowFullyQualifiedGlobalFunctions" value="true"/>
+			<property name="allowFullyQualifiedGlobalConstants" value="true"/>
+			<property name="allowFullyQualifiedGlobalClasses" value="true"/>
+			<property name="allowFullyQualifiedExceptions" value="true"/>
 		</properties>
 	</rule>
 
