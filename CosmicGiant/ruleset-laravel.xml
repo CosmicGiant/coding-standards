@@ -206,6 +206,9 @@
 	<!-- Use short array syntax -->
 	<rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
 
+	<!-- Enforce array element indentation one level beyond opening bracket -->
+	<rule ref="Generic.Arrays.ArrayIndent"/>
+
 	<!-- Align array values for better readability -->
 	<rule ref="WordPress.Arrays.MultipleStatementAlignment">
 		<properties>
