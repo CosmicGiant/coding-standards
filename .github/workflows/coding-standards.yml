@@ -110,6 +110,29 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Determine PHP version
+        id: php-version
+        run: |
+          if [ "${{ inputs.php-version }}" != "" ]; then
+            echo "version=${{ inputs.php-version }}" >> $GITHUB_OUTPUT
+          elif [ "${{ inputs.project-type }}" == "laravel" ]; then
+            echo "version=8.4" >> $GITHUB_OUTPUT
+          else
+            echo "version=7.4" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ steps.php-version.outputs.version }}
+          coverage: none
+          tools: composer
+
+      - name: Install Composer dependencies
+        uses: ramsey/composer-install@v3
+        with:
+          composer-options: "--no-progress --no-ansi --no-interaction"
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
