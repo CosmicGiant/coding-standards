@@ -85,7 +85,11 @@ jobs:
       - name: Determine PHPCS ruleset
         id: ruleset
         run: |
-          if [ "${{ inputs.project-type }}" == "laravel" ]; then
+          if [ -f "./phpcs.xml" ]; then
+            echo "path=./phpcs.xml" >> $GITHUB_OUTPUT
+          elif [ -f "./phpcs.xml.dist" ]; then
+            echo "path=./phpcs.xml.dist" >> $GITHUB_OUTPUT
+          elif [ "${{ inputs.project-type }}" == "laravel" ]; then
             echo "path=./vendor/cosmicgiant/coding-standards/CosmicGiant/ruleset-laravel.xml" >> $GITHUB_OUTPUT
           else
             echo "path=./vendor/cosmicgiant/coding-standards/CosmicGiant/ruleset-wordpress.xml" >> $GITHUB_OUTPUT
