@@ -762,6 +762,6 @@ For issues or questions:
 
 - [WordPress Coding Standards](https://developer.wordpress.org/coding-standards/)
 - [PSR-2: Coding Style Guide](https://www.php-fig.org/psr/psr-2/)
-- [PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer)
+- [PHP_CodeSniffer](https://github.com/PHPCSStandards/PHP_CodeSniffer)
 - [Slevomat Coding Standard](https://github.com/slevomat/coding-standard)
 - [ESLint](https://eslint.org/)
