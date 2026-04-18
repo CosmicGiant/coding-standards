@@ -33,6 +33,8 @@ module.exports = {
 
 		// Formatting rules (matching WordPress style)
 		camelcase:                             [ 'warn' ],
+		'comma-dangle':                        [ 'warn', 'always-multiline' ],
+		indent:                                [ 'warn', 'tab' ],
 		'key-spacing':                         [ 'warn', {
 			mode: 'minimum', align: 'value',
 		} ],
@@ -44,7 +46,12 @@ module.exports = {
 			},
 		} ],
 		'no-undef':                            [ 'error' ],
-		'padded-blocks':                       [ 'warn' ],
+		'object-curly-spacing':                [ 'warn', 'always' ],
+		'padded-blocks':                       [ 'warn', 'never' ],
+		semi:                                  [ 'warn', 'always' ],
+		'space-in-parens':                     [ 'warn', 'always', {
+			exceptions: [ 'empty' ],
+		} ],
 
 		// Additional quality rules
 		'no-unused-vars':                      [ 'warn', {
