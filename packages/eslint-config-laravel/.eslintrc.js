@@ -32,8 +32,10 @@ module.exports = {
 		'prefer-template':                     [ 'warn' ],
 
 		// Formatting rules (matching WordPress style)
+		'brace-style':                         [ 'warn', '1tbs' ],
 		camelcase:                             [ 'warn' ],
 		'comma-dangle':                        [ 'warn', 'always-multiline' ],
+		curly:                                 [ 'warn', 'all' ],
 		indent:                                [ 'warn', 'tab' ],
 		'key-spacing':                         [ 'warn', {
 			mode: 'minimum', align: 'value',
