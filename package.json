@@ -1,0 +1,7 @@
+{
+	"name": "@cosmicgiant/coding-standards",
+	"private": true,
+	"workspaces": [
+		"packages/*"
+	]
+}
