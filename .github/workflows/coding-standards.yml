@@ -155,6 +155,11 @@ jobs:
           npm --version
           git --version
 
+      - name: Configure git for private npm packages
+        run: |
+          git config --global url."https://${{ secrets.GH_TOKEN || github.token }}@github.com/".insteadOf "ssh://git@github.com/"
+          git config --global url."https://${{ secrets.GH_TOKEN || github.token }}@github.com/".insteadOf "git@github.com:"
+
       - name: Install npm dependencies
         run: npm install
 
