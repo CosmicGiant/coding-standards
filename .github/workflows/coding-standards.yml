@@ -2,6 +2,10 @@ name: Reusable Coding Standards
 
 on:
   workflow_call:
+    secrets:
+      GH_TOKEN:
+        description: 'Token with read access to private Composer/npm dependencies. Must be passed explicitly by cross-org callers — org secrets do not flow through `secrets: inherit` across organizations.'
+        required: false
     inputs:
       project-type:
         description: 'Project type: wordpress or laravel'
