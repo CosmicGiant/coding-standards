@@ -1,0 +1,35 @@
+{
+	"name": "@cosmicgiant/eslint-plugin-align",
+	"version": "1.0.0",
+	"description": "Assignment and import alignment rules for ESLint 9 and 10",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/CosmicGiant/coding-standards.git",
+		"directory": "packages/eslint-plugin-align"
+	},
+	"bugs": {
+		"url": "https://github.com/CosmicGiant/coding-standards/issues"
+	},
+	"homepage": "https://github.com/CosmicGiant/coding-standards#readme",
+	"engines": {
+		"node": ">=20.10.0"
+	},
+	"main": "index.js",
+	"files": [
+		"index.js",
+		"lib",
+		"LICENSE"
+	],
+	"keywords": [
+		"eslint",
+		"eslintplugin",
+		"eslint-plugin",
+		"align",
+		"alignment",
+		"cosmicgiant"
+	],
+	"peerDependencies": {
+		"eslint": "^8.0.0 || ^9.0.0 || ^10.0.0"
+	}
+}

@@ -19,20 +19,20 @@ npm install --save-dev github:cosmicgiant/coding-standards#main eslint
 
 ## Usage
 
-Create an `.eslintrc.js` file in your project root:
+Create an `eslint.config.js` file in your project root:
 
 ```js
-module.exports = {
-	extends: [
-		'./node_modules/@cosmicgiant/coding-standards/packages/eslint-config-laravel/.eslintrc.js'
-	]
-};
+const cosmicgiant = require( '@cosmicgiant/coding-standards/packages/eslint-config-laravel' );
+
+module.exports = [
+	...cosmicgiant,
+];
 ```
 
 Or reference it directly:
 
 ```js
-module.exports = require( './node_modules/@cosmicgiant/coding-standards/packages/eslint-config-laravel/.eslintrc.js' );
+module.exports = require( '@cosmicgiant/coding-standards/packages/eslint-config-laravel' );
 ```
 
 ## Custom Rules
@@ -115,18 +115,16 @@ To add Vue.js support, install the Vue ESLint plugin:
 npm install --save-dev eslint-plugin-vue
 ```
 
-Update your `.eslintrc.js`:
+Update your `eslint.config.js`:
 
 ```js
-module.exports = {
-	extends: [
-		'./node_modules/@cosmicgiant/coding-standards/packages/eslint-config-laravel/.eslintrc.js',
-		'plugin:vue/vue3-recommended',
-	],
-	parserOptions: {
-		parser: '@babel/eslint-parser',
-	},
-};
+const cosmicgiant = require( '@cosmicgiant/coding-standards/packages/eslint-config-laravel' );
+const vue         = require( 'eslint-plugin-vue' );
+
+module.exports = [
+	...cosmicgiant,
+	...vue.configs['flat/recommended'],
+];
 ```
 
 ## TypeScript Support
@@ -137,16 +135,16 @@ To add TypeScript support:
 npm install --save-dev @typescript-eslint/parser @typescript-eslint/eslint-plugin
 ```
 
-Update your `.eslintrc.js`:
+Update your `eslint.config.js`:
 
 ```js
-module.exports = {
-	extends: [
-		'./node_modules/@cosmicgiant/coding-standards/packages/eslint-config-laravel/.eslintrc.js',
-		'plugin:@typescript-eslint/recommended',
-	],
-	parser: '@typescript-eslint/parser',
-};
+const cosmicgiant = require( '@cosmicgiant/coding-standards/packages/eslint-config-laravel' );
+const tseslint    = require( 'typescript-eslint' );
+
+module.exports = [
+	...cosmicgiant,
+	...tseslint.configs.recommended,
+];
 ```
 
 ## Laravel Mix Integration
@@ -219,30 +217,29 @@ Install the ESLint extension and add to `.vscode/settings.json`:
 
 ## Customization
 
-You can override or extend rules in your project's `.eslintrc.js`:
+You can override or extend rules in your project's `eslint.config.js`. Later entries
+win, so put your overrides after the spread:
 
 ```js
-module.exports = {
-	extends: [
-		'./node_modules/@cosmicgiant/coding-standards/packages/eslint-config-laravel/.eslintrc.js'
-	],
-	rules: {
-		// Make console an error instead of warning
-		'no-console': 'error',
+const globals     = require( 'globals' );
+const cosmicgiant = require( '@cosmicgiant/coding-standards/packages/eslint-config-laravel' );
 
-		// Allow underscore dangle (common in Laravel)
-		'no-underscore-dangle': 'off',
+module.exports = [
+	...cosmicgiant,
+	{
+		rules:           {
+			// Make console an error instead of warning
+			'no-console':           'error',
 
-		// Custom import order
-		'import/order': [ 'warn', {
-			groups: [ 'builtin', 'external', 'internal' ],
-		} ],
+			// Allow underscore dangle (common in Laravel)
+			'no-underscore-dangle': 'off',
+		},
+		languageOptions: {
+			// Add additional environments
+			globals: { ...globals.jest },
+		},
 	},
-	env: {
-		// Add additional environments
-		jest: true,
-	},
-};
+];
 ```
 
 ## Troubleshooting
@@ -273,8 +270,7 @@ nvm use 20.10.0
 ## Related Packages
 
 - [eslint](https://www.npmjs.com/package/eslint)
-- [eslint-plugin-align-assignments](https://www.npmjs.com/package/eslint-plugin-align-assignments)
-- [eslint-plugin-align-import](https://www.npmjs.com/package/eslint-plugin-align-import)
+- [@cosmicgiant/eslint-plugin-align](../eslint-plugin-align) — vendored alignment rules
 - [eslint-plugin-vue](https://www.npmjs.com/package/eslint-plugin-vue) (optional)
 
 ## License

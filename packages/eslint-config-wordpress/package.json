@@ -15,9 +15,9 @@
 	"engines": {
 		"node": ">=20.10.0"
 	},
-	"main": ".eslintrc.js",
+	"main": "index.js",
 	"files": [
-		".eslintrc.js"
+		"index.js"
 	],
 	"keywords": [
 		"eslint",
@@ -36,12 +36,13 @@
 		"lint:fix": "eslint --quiet --format table --fix ."
 	},
 	"dependencies": {
+		"@cosmicgiant/eslint-plugin-align": "^1.0.0",
 		"eslint-formatter-table": "^7.32.1",
 		"eslint-import-resolver-webpack": "^0.13.2",
-		"eslint-plugin-align-assignments": "^1.1.2",
-		"eslint-plugin-align-import": "^1.0.0"
+		"globals": "^15.0.0"
 	},
 	"peerDependencies": {
-		"@wordpress/eslint-plugin": "^22.22.0"
+		"@wordpress/eslint-plugin": "^25.0.0",
+		"eslint": "^9.0.0"
 	}
 }
