@@ -1,8 +1,8 @@
 # Composer dependencies
 /vendor/
 
-# npm dependencies
-/node_modules/
+# npm dependencies (unanchored so workspace children under packages/ are covered)
+node_modules/
 
 # Composer lock file
 composer.lock

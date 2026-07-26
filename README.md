@@ -66,13 +66,40 @@ composer install
 
 ### JavaScript Standards (via npm)
 
-```bash
-# WordPress projects
-npm install --save-dev github:cosmicgiant/coding-standards#main @wordpress/eslint-plugin
+The ESLint configs live in npm workspaces under `packages/`. npm does **not** install
+workspace children — or their dependencies — from a git URL, so installing this repo
+alone gives you the config file but none of the plugins it loads, and ESLint hard-fails
+on startup. Until the configs are published to the npm registry, each consuming project
+must install the config's dependencies explicitly.
 
-# Laravel projects
-npm install --save-dev github:cosmicgiant/coding-standards#main eslint
+**WordPress projects:**
+
+```bash
+npm install --save-dev \
+  github:cosmicgiant/coding-standards#main \
+  eslint@^8 \
+  @wordpress/eslint-plugin@^22.22.0 \
+  eslint-formatter-table@^7.32.1 \
+  eslint-import-resolver-webpack@^0.13.2 \
+  eslint-plugin-align-assignments@^1.1.2 \
+  eslint-plugin-align-import@^1.0.0
 ```
+
+**Laravel projects:**
+
+```bash
+npm install --save-dev \
+  github:cosmicgiant/coding-standards#main \
+  eslint@^8 \
+  eslint-formatter-table@^7.32.1 \
+  eslint-plugin-align-assignments@^1.1.2 \
+  eslint-plugin-align-import@^1.0.0
+```
+
+Pin `eslint` to 8.x and `@wordpress/eslint-plugin` to 22.x. These configs are
+`.eslintrc` format: ESLint 9+ defaults to flat config and silently ignores them, and
+`@wordpress/eslint-plugin` 23+ requires ESLint 9. Keep this list in sync with the
+`dependencies` and `peerDependencies` in `packages/eslint-config-*/package.json`.
 
 
 ## Usage - WordPress Projects
@@ -559,6 +586,7 @@ To disable a rule entirely:
 | **Type Hints** | Optional | **Required** (enforced via Slevomat) |
 | **Array Syntax** | Flexible (`array()` or `[]`) | **Short only** (`[]`) |
 | **Array Alignment** | **Required** (auto-fixable) | **Required** (auto-fixable) |
+| **Function Body Spacing** | No blank line at start/end (auto-fixable) | No blank line at start/end (auto-fixable) |
 | **Trailing Commas** | Not required | **Required** in multi-line arrays |
 | **Doc Block Formatting** | Basic spacing required | **Strict** (with tag grouping) |
 | **Import Sorting** | Not enforced | **Alphabetical** (required) |
@@ -637,6 +665,33 @@ function my_function($arg1, $arg2) {
 ```
 
 This applies to both function declarations and function calls.
+
+#### Function Body Spacing
+
+Function bodies must not open or close with a blank line:
+
+```php
+// Required format
+function my_function( $arg1, $arg2 ) {
+	return $arg1 + $arg2;
+}
+
+// Not allowed (blank line after the opening brace)
+function my_function( $arg1, $arg2 ) {
+
+	return $arg1 + $arg2;
+}
+
+// Not allowed (blank line before the closing brace)
+function my_function( $arg1, $arg2 ) {
+	return $arg1 + $arg2;
+
+}
+```
+
+Enforced by `Squiz.WhiteSpace.FunctionOpeningBraceSpace` and
+`PSR2.Methods.FunctionClosingBrace`. Both are errors in the WordPress and Laravel
+rulesets, and both are auto-fixable — run `phpcbf` rather than fixing by hand.
 
 #### Doc Block Spacing (WordPress)
 
