@@ -72,17 +72,18 @@ alone gives you the config file but none of the plugins it loads, and ESLint har
 on startup. Until the configs are published to the npm registry, each consuming project
 must install the config's dependencies explicitly.
 
+The alignment rules are vendored in this repo as `packages/eslint-plugin-align`, which
+the configs load by relative path — it needs no install of its own.
+
 **WordPress projects:**
 
 ```bash
 npm install --save-dev \
   github:cosmicgiant/coding-standards#main \
-  eslint@^8 \
-  @wordpress/eslint-plugin@^22.22.0 \
-  eslint-formatter-table@^7.32.1 \
-  eslint-import-resolver-webpack@^0.13.2 \
-  eslint-plugin-align-assignments@^1.1.2 \
-  eslint-plugin-align-import@^1.0.0
+  eslint@^9 \
+  @wordpress/eslint-plugin@^25 \
+  globals@^15 \
+  eslint-import-resolver-webpack
 ```
 
 **Laravel projects:**
@@ -90,16 +91,38 @@ npm install --save-dev \
 ```bash
 npm install --save-dev \
   github:cosmicgiant/coding-standards#main \
-  eslint@^8 \
-  eslint-formatter-table@^7.32.1 \
-  eslint-plugin-align-assignments@^1.1.2 \
-  eslint-plugin-align-import@^1.0.0
+  eslint@^9 \
+  @eslint/js@^9 \
+  globals@^15
 ```
 
-Pin `eslint` to 8.x and `@wordpress/eslint-plugin` to 22.x. These configs are
-`.eslintrc` format: ESLint 9+ defaults to flat config and silently ignores them, and
-`@wordpress/eslint-plugin` 23+ requires ESLint 9. Keep this list in sync with the
-`dependencies` and `peerDependencies` in `packages/eslint-config-*/package.json`.
+Add `eslint-formatter-table` only if you use `--format table`.
+
+Pin `eslint` to 9.x. ESLint 10 is not yet usable for WordPress projects:
+`eslint-import-resolver-webpack` requires `eslint-plugin-import`, whose peer range stops
+at ESLint 9, so `import/resolver: 'webpack'` blocks the upgrade. Both configs stay on 9
+until that clears, so projects do not straddle two majors.
+
+Keep these lists in sync with the `dependencies` and `peerDependencies` in
+`packages/eslint-config-*/package.json`.
+
+#### Migrating from the ESLint 8 configs
+
+The configs are flat-config only. If your project still has an `.eslintrc.js`:
+
+1. Delete `.eslintrc.js` and `.eslintignore`, and create `eslint.config.js` as shown
+   under Usage below. Ignores move into the config as a `{ ignores: [ ... ] }` entry —
+   ESLint 9 no longer reads `.eslintignore`.
+2. Update the npm dependencies to the lists above, and drop
+   `eslint-plugin-align-assignments` and `eslint-plugin-align-import`. They are replaced
+   by the vendored `packages/eslint-plugin-align` and are not installed separately.
+3. Re-run `eslint . --fix`. Rule coverage is unchanged, so the only diff should be
+   whatever the old setup was failing to fix.
+
+The alignment rules change prefix: `align-assignments/align-assignments` becomes
+`align/align-assignments`, and `align-import/align-import` becomes `align/align-import`.
+That only matters where you name them directly, in an override or an inline
+`eslint-disable` comment.
 
 
 ## Usage - WordPress Projects
@@ -137,14 +160,14 @@ vendor/bin/phpcbf
 
 ### JavaScript Coding Standards
 
-Create an `.eslintrc.js` file in your project root:
+Create an `eslint.config.js` file in your project root:
 
 ```js
-module.exports = {
-	extends: [
-		'./node_modules/@cosmicgiant/coding-standards/packages/eslint-config-wordpress/.eslintrc.js'
-	]
-};
+const cosmicgiant = require( '@cosmicgiant/coding-standards/packages/eslint-config-wordpress' );
+
+module.exports = [
+	...cosmicgiant,
+];
 ```
 
 Add npm scripts to your `package.json`:
@@ -201,14 +224,14 @@ vendor/bin/phpcbf
 
 ### JavaScript Coding Standards
 
-Create an `.eslintrc.js` file in your project root:
+Create an `eslint.config.js` file in your project root:
 
 ```js
-module.exports = {
-	extends: [
-		'./node_modules/@cosmicgiant/coding-standards/packages/eslint-config-laravel/.eslintrc.js'
-	]
-};
+const cosmicgiant = require( '@cosmicgiant/coding-standards/packages/eslint-config-laravel' );
+
+module.exports = [
+	...cosmicgiant,
+];
 ```
 
 Add composer scripts:
@@ -785,10 +808,10 @@ vendor/bin/phpcs --standard=CosmicGiant/ruleset-laravel.xml path/to/file.php
 
 ```bash
 # Test WordPress config
-npx eslint --config packages/eslint-config-wordpress/.eslintrc.js path/to/file.js
+npx eslint --config packages/eslint-config-wordpress/index.js path/to/file.js
 
 # Test Laravel config
-npx eslint --config packages/eslint-config-laravel/.eslintrc.js path/to/file.js
+npx eslint --config packages/eslint-config-laravel/index.js path/to/file.js
 ```
 
 

@@ -18,20 +18,20 @@ npm install --save-dev github:cosmicgiant/coding-standards#main @wordpress/eslin
 
 ## Usage
 
-Create an `.eslintrc.js` file in your project root:
+Create an `eslint.config.js` file in your project root:
 
 ```js
-module.exports = {
-	extends: [
-		'./node_modules/@cosmicgiant/coding-standards/packages/eslint-config-wordpress/.eslintrc.js'
-	]
-};
+const cosmicgiant = require( '@cosmicgiant/coding-standards/packages/eslint-config-wordpress' );
+
+module.exports = [
+	...cosmicgiant,
+];
 ```
 
 Or reference it directly:
 
 ```js
-module.exports = require( './node_modules/@cosmicgiant/coding-standards/packages/eslint-config-wordpress/.eslintrc.js' );
+module.exports = require( '@cosmicgiant/coding-standards/packages/eslint-config-wordpress' );
 ```
 
 ## Custom Rules
@@ -140,23 +140,26 @@ Install the ESLint extension and add to `.vscode/settings.json`:
 
 ## Customization
 
-You can override or extend rules in your project's `.eslintrc.js`:
+You can override or extend rules in your project's `eslint.config.js`. Later entries
+win, so put your overrides after the spread:
 
 ```js
-module.exports = {
-	extends: [
-		'./node_modules/@cosmicgiant/coding-standards/packages/eslint-config-wordpress/.eslintrc.js'
-	],
-	rules: {
-		// Override rules
-		'camelcase': 'error', // Change from warning to error
-		'no-console': 'warn', // Add new rule
+const cosmicgiant = require( '@cosmicgiant/coding-standards/packages/eslint-config-wordpress' );
+
+module.exports = [
+	...cosmicgiant,
+	{
+		rules:           {
+			camelcase:    'error', // Change from warning to error
+			'no-console': 'warn',  // Add new rule
+		},
+		languageOptions: {
+			globals: {
+				myCustomGlobal: 'readonly',
+			},
+		},
 	},
-	globals: {
-		// Add custom globals
-		myCustomGlobal: 'readonly',
-	},
-};
+];
 ```
 
 ## Troubleshooting
@@ -171,12 +174,13 @@ npm install --save-dev @wordpress/eslint-plugin
 
 ### "Parsing error: The keyword 'const' is reserved"
 
-Update your `.eslintrc.js` to set the correct parser options:
+Set the parser options in your `eslint.config.js`:
 
 ```js
 {
-	parserOptions: {
+	languageOptions: {
 		ecmaVersion: 'latest',
+		sourceType:  'module',
 	},
 }
 ```
@@ -184,8 +188,7 @@ Update your `.eslintrc.js` to set the correct parser options:
 ## Related Packages
 
 - [@wordpress/eslint-plugin](https://www.npmjs.com/package/@wordpress/eslint-plugin)
-- [eslint-plugin-align-assignments](https://www.npmjs.com/package/eslint-plugin-align-assignments)
-- [eslint-plugin-align-import](https://www.npmjs.com/package/eslint-plugin-align-import)
+- [@cosmicgiant/eslint-plugin-align](../eslint-plugin-align) — vendored alignment rules
 
 ## License
 
