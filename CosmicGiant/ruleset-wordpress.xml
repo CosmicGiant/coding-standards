@@ -63,12 +63,14 @@
 	<rule ref="PSR2.ControlStructures.SwitchDeclaration.BodyOnNextLineDEFAULT">
 		<type>warning</type>
 	</rule>
-	<rule ref="PSR2.Methods.FunctionClosingBrace.SpacingBeforeClose">
-		<type>warning</type>
-	</rule>
 	<rule ref="PSR2.Classes.ClassDeclaration.CloseBraceAfterBody">
 		<type>warning</type>
 	</rule>
+
+	<!-- No blank line at the start or end of a function body. Both are auto-fixable,
+		and both are errors so `phpcs -n` (what CI runs) catches them. -->
+	<rule ref="Squiz.WhiteSpace.FunctionOpeningBraceSpace"/>
+	<rule ref="PSR2.Methods.FunctionClosingBrace.SpacingBeforeClose"/>
 
 	<!-- We like one liners, turn the following rules into warnings. -->
 	<rule ref="WordPress.Arrays.ArrayDeclarationSpacing.AssociativeArrayFound">
