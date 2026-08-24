@@ -89,6 +89,9 @@
 	<!-- Require spaces inside control structure parentheses: if ( $condition ) -->
 	<rule ref="WordPress.WhiteSpace.ControlStructureSpacing"/>
 
+	<!-- One space between the function keyword and a closure's parenthesis: function ( $x ) -->
+	<rule ref="PEAR.Functions.FunctionDeclaration.SpaceAfterFunction"/>
+
 	<!-- ==================== -->
 	<!-- Brace Placement (K&R Style - Same Line) -->
 	<!-- ==================== -->
