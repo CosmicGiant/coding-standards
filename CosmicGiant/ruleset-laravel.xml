@@ -210,6 +210,15 @@
 	<!-- Enforce array element indentation one level beyond opening bracket -->
 	<rule ref="Generic.Arrays.ArrayIndent"/>
 
+	<!-- Space inside array brackets: [ 'a' => 1 ], never ['a' => 1] -->
+	<rule ref="NormalizedArrays.Arrays.ArrayBraceSpacing">
+		<properties>
+			<property name="spacesWhenEmpty" value="0"/>
+			<property name="spacesSingleLine" value="1"/>
+			<property name="spacesMultiLine" value="newline"/>
+		</properties>
+	</rule>
+
 	<!-- Align array values for better readability -->
 	<rule ref="WordPress.Arrays.MultipleStatementAlignment">
 		<properties>
