@@ -1,0 +1,51 @@
+{
+	"name": "@cosmicgiant/oxlint-config-wordpress",
+	"version": "1.0.0",
+	"description": "Oxlint configuration for WordPress projects",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/CosmicGiant/coding-standards.git",
+		"directory": "packages/oxlint-config-wordpress"
+	},
+	"bugs": {
+		"url": "https://github.com/CosmicGiant/coding-standards/issues"
+	},
+	"homepage": "https://github.com/CosmicGiant/coding-standards#readme",
+	"engines": {
+		"node": ">=20.19.0"
+	},
+	"main": "index.js",
+	"exports": {
+		".": "./index.js",
+		"./.oxlintrc.json": "./.oxlintrc.json",
+		"./plugin": "./plugin.js"
+	},
+	"files": [
+		"index.js",
+		".oxlintrc.json",
+		"plugin.js",
+		"lib"
+	],
+	"keywords": [
+		"oxlint",
+		"oxlintconfig",
+		"oxlint-config",
+		"javascript",
+		"lint",
+		"linter",
+		"linting",
+		"cosmicgiant",
+		"wordpress"
+	],
+	"peerDependencies": {
+		"@stylistic/eslint-plugin": "^5.0.0",
+		"@wordpress/eslint-plugin": "^25.0.0 || ^26.0.0 || ^27.0.0",
+		"oxlint": "^1.40.0"
+	},
+	"peerDependenciesMeta": {
+		"oxlint": {
+			"optional": true
+		}
+	}
+}
