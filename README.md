@@ -22,7 +22,7 @@ Shared coding standards for WordPress and Laravel projects at CosmicGiant. This 
 
 - **WordPress Standards**: Based on WordPress-Core with company-specific customizations
 - **Laravel Standards**: Based on PSR-2 with modern PHP best practices (Slevomat)
-- **JavaScript Standards**: Separate ESLint configurations for WordPress and Laravel
+- **JavaScript Standards**: Separate ESLint configurations for WordPress and Laravel, plus an Oxlint form of the WordPress config for Vite+ projects
 - **IDE Integration**: Full setup guides for PHPStorm, VS Code, and other editors
 - **GitHub Actions**: Reusable workflow for automated code quality checks
 - **Flexible**: Warnings for style preferences, errors for code quality issues
@@ -105,6 +105,16 @@ until that clears, so projects do not straddle two majors.
 
 Keep these lists in sync with the `dependencies` and `peerDependencies` in
 `packages/eslint-config-*/package.json`.
+
+#### Oxlint and Vite+ projects
+
+WordPress projects that lint with Oxlint (`vp lint` under Vite+) use
+`packages/oxlint-config-wordpress` instead of the ESLint config. It carries the same
+rules and is consumed straight from the Composer-installed copy; the project installs
+only `@wordpress/eslint-plugin` and `@stylistic/eslint-plugin`. Setup, the
+`vite.config.js` snippet and the list of rules Oxlint cannot run are in
+[its README](packages/oxlint-config-wordpress/README.md). Oxfmt is not used: it cannot
+align assignments or object values.
 
 #### Migrating from the ESLint 8 configs
 

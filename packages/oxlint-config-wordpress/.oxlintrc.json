@@ -1,0 +1,344 @@
+{
+	"plugins": [ "import", "jsdoc", "jsx-a11y", "react" ],
+	"jsPlugins": [
+		"@wordpress/eslint-plugin",
+		"@stylistic/eslint-plugin",
+		{
+			"name": "align",
+			"specifier": "../eslint-plugin-align/index.js"
+		},
+		{
+			"name": "cosmicgiant",
+			"specifier": "./plugin.js"
+		}
+	],
+	"categories": {
+		"correctness": "off"
+	},
+	"env": {
+		"builtin": true,
+		"es2026": true,
+		"browser": true,
+		"node": true
+	},
+	"globals": {
+		"wp": "readonly",
+		"gform": "readonly",
+		"ajaxurl": "readonly"
+	},
+	"settings": {
+		"jsdoc": {
+			"preferredTypes": {
+				"object": "Object",
+				"bool": "boolean"
+			},
+			"tagNamePreference": {
+				"returns": "return",
+				"yields": "yield"
+			}
+		}
+	},
+	"rules": {
+		"array-callback-return": "error",
+		"curly": [ "error", "all" ],
+		"eqeqeq": "error",
+		"no-alert": "error",
+		"no-bitwise": "error",
+		"no-caller": "error",
+		"no-cond-assign": [ "error", "except-parens" ],
+		"no-console": "error",
+		"no-debugger": "error",
+		"no-dupe-keys": "error",
+		"no-duplicate-case": "error",
+		"no-else-return": "error",
+		"no-eval": "error",
+		"no-fallthrough": "error",
+		"no-irregular-whitespace": "error",
+		"no-lonely-if": "error",
+		"no-multi-str": "error",
+		"no-nested-ternary": "error",
+		"no-redeclare": "error",
+		"no-shadow": "error",
+		"no-unreachable": "error",
+		"no-unsafe-negation": "error",
+		"no-unused-expressions": "error",
+		"no-unused-vars": [
+			"error",
+			{
+				"ignoreRestSiblings": true
+			}
+		],
+		"no-useless-return": "error",
+		"no-with": "error",
+		"valid-typeof": "error",
+		"constructor-super": "error",
+		"no-const-assign": "error",
+		"no-dupe-class-members": "error",
+		"no-duplicate-imports": "error",
+		"no-useless-computed-key": "error",
+		"no-useless-constructor": "error",
+		"no-var": "error",
+		"object-shorthand": "error",
+		"prefer-const": [
+			"error",
+			{
+				"destructuring": "all"
+			}
+		],
+		"no-undef": "warn",
+		"import/default": "warn",
+		"import/named": "warn",
+		"jsdoc/check-access": "error",
+		"jsdoc/check-property-names": "error",
+		"jsdoc/check-tag-names": "error",
+		"jsdoc/empty-tags": "error",
+		"jsdoc/implements-on-classes": "error",
+		"jsdoc/require-param": "error",
+		"jsdoc/require-param-name": "error",
+		"jsdoc/require-param-type": "error",
+		"jsdoc/require-property": "error",
+		"jsdoc/require-property-description": "error",
+		"jsdoc/require-property-name": "error",
+		"jsdoc/require-property-type": "error",
+		"jsdoc/require-returns-description": "error",
+		"jsdoc/require-returns-type": "error",
+		"jsdoc/require-throws-type": "warn",
+		"jsdoc/require-yields-type": "warn",
+		"react/jsx-key": "error",
+		"react/jsx-no-comment-textnodes": "error",
+		"react/jsx-no-duplicate-props": "error",
+		"react/jsx-no-target-blank": "error",
+		"react/jsx-no-undef": "error",
+		"react/no-danger-with-children": "error",
+		"react/no-direct-mutation-state": "error",
+		"react/no-find-dom-node": "error",
+		"react/no-is-mounted": "error",
+		"react/no-render-return-value": "error",
+		"react/no-string-refs": "error",
+		"react/no-unescaped-entities": "error",
+		"react/no-unknown-property": "error",
+		"react/exhaustive-deps": [
+			"warn",
+			{
+				"additionalHooks": "^(useSelect|useSuspenseSelect)$"
+			}
+		],
+		"react/rules-of-hooks": "error",
+		"react/require-render-return": "error",
+		"jsx-a11y/alt-text": "error",
+		"jsx-a11y/anchor-has-content": "error",
+		"jsx-a11y/anchor-is-valid": "error",
+		"jsx-a11y/aria-activedescendant-has-tabindex": "error",
+		"jsx-a11y/aria-props": "error",
+		"jsx-a11y/aria-proptypes": "error",
+		"jsx-a11y/aria-role": "error",
+		"jsx-a11y/aria-unsupported-elements": "error",
+		"jsx-a11y/autocomplete-valid": "error",
+		"jsx-a11y/click-events-have-key-events": "error",
+		"jsx-a11y/html-has-lang": "error",
+		"jsx-a11y/iframe-has-title": "error",
+		"jsx-a11y/img-redundant-alt": "error",
+		"jsx-a11y/interactive-supports-focus": [
+			"error",
+			{
+				"tabbable": [ "button", "checkbox", "link", "searchbox", "spinbutton", "switch", "textbox" ]
+			}
+		],
+		"jsx-a11y/label-has-associated-control": [
+			"error",
+			{
+				"assert": "htmlFor"
+			}
+		],
+		"jsx-a11y/mouse-events-have-key-events": "error",
+		"jsx-a11y/no-access-key": "error",
+		"jsx-a11y/no-autofocus": "error",
+		"jsx-a11y/no-distracting-elements": "error",
+		"jsx-a11y/no-interactive-element-to-noninteractive-role": [
+			"error",
+			{
+				"tr": [ "none", "presentation" ],
+				"canvas": [ "img" ]
+			}
+		],
+		"jsx-a11y/no-noninteractive-element-interactions": [
+			"error",
+			{
+				"handlers": [ "onClick", "onError", "onLoad", "onMouseDown", "onMouseUp", "onKeyPress", "onKeyDown", "onKeyUp" ],
+				"alert": [ "onKeyUp", "onKeyDown", "onKeyPress" ],
+				"body": [ "onError", "onLoad" ],
+				"dialog": [ "onKeyUp", "onKeyDown", "onKeyPress" ],
+				"iframe": [ "onError", "onLoad" ],
+				"img": [ "onError", "onLoad" ]
+			}
+		],
+		"jsx-a11y/no-noninteractive-element-to-interactive-role": [
+			"error",
+			{
+				"ul": [ "listbox", "menu", "menubar", "radiogroup", "tablist", "tree", "treegrid" ],
+				"ol": [ "listbox", "menu", "menubar", "radiogroup", "tablist", "tree", "treegrid" ],
+				"li": [ "menuitem", "menuitemradio", "menuitemcheckbox", "option", "row", "tab", "treeitem" ],
+				"table": [ "grid" ],
+				"td": [ "gridcell" ],
+				"fieldset": [ "radiogroup", "presentation" ]
+			}
+		],
+		"jsx-a11y/no-redundant-roles": "error",
+		"jsx-a11y/no-static-element-interactions": [
+			"error",
+			{
+				"allowExpressionValues": true,
+				"handlers": [ "onClick", "onMouseDown", "onMouseUp", "onKeyPress", "onKeyDown", "onKeyUp" ]
+			}
+		],
+		"jsx-a11y/role-supports-aria-props": "error",
+		"jsx-a11y/scope": "error",
+		"jsx-a11y/tabindex-no-positive": "error",
+		"@wordpress/no-unused-vars-before-return": [
+			"error",
+			{
+				"excludePattern": "^use"
+			}
+		],
+		"@wordpress/no-base-control-with-label-without-id": "error",
+		"@wordpress/no-unguarded-get-range-at": "error",
+		"@wordpress/no-global-active-element": "error",
+		"@wordpress/no-global-get-selection": "error",
+		"@wordpress/no-unsafe-render-order": "error",
+		"@wordpress/no-setting-ds-tokens": "error",
+		"@wordpress/no-unknown-ds-tokens": "error",
+		"@wordpress/no-unsafe-wp-apis": "error",
+		"@wordpress/no-wp-process-env": "error",
+		"@wordpress/valid-sprintf": "error",
+		"@wordpress/i18n-translator-comments": "error",
+		"@wordpress/i18n-text-domain": "error",
+		"@wordpress/i18n-no-collapsible-whitespace": "error",
+		"@wordpress/i18n-no-placeholders-only": "error",
+		"@wordpress/i18n-no-variables": "error",
+		"@wordpress/i18n-ellipsis": "error",
+		"@wordpress/i18n-no-flanking-whitespace": "error",
+		"@wordpress/i18n-hyphenated-range": "error",
+		"@stylistic/array-bracket-spacing": [ "error", "always" ],
+		"@stylistic/arrow-parens": [ "error", "always" ],
+		"@stylistic/arrow-spacing": "error",
+		"@stylistic/brace-style": [ "error", "1tbs" ],
+		"@stylistic/comma-dangle": [ "error", "always-multiline" ],
+		"@stylistic/comma-spacing": "error",
+		"@stylistic/comma-style": [ "error", "last" ],
+		"@stylistic/computed-property-spacing": [ "error", "always" ],
+		"@stylistic/eol-last": "error",
+		"@stylistic/function-call-spacing": "error",
+		"@stylistic/indent": [
+			"error",
+			"tab",
+			{
+				"SwitchCase": 1
+			}
+		],
+		"@stylistic/jsx-curly-spacing": [
+			"error",
+			{
+				"when": "always",
+				"children": true
+			}
+		],
+		"@stylistic/jsx-equals-spacing": "error",
+		"@stylistic/jsx-indent-props": [ "error", "tab" ],
+		"@stylistic/jsx-quotes": "error",
+		"@stylistic/jsx-tag-spacing": "error",
+		"@stylistic/key-spacing": [
+			"warn",
+			{
+				"mode": "minimum",
+				"align": "value"
+			}
+		],
+		"@stylistic/keyword-spacing": "error",
+		"@stylistic/linebreak-style": [ "error", "unix" ],
+		"@stylistic/no-extra-semi": "error",
+		"@stylistic/no-mixed-operators": "error",
+		"@stylistic/no-mixed-spaces-and-tabs": "error",
+		"@stylistic/no-multi-spaces": [
+			"warn",
+			{
+				"exceptions": {
+					"VariableDeclarator": true,
+					"ImportDeclaration": true
+				}
+			}
+		],
+		"@stylistic/no-multiple-empty-lines": [
+			"warn",
+			{
+				"max": 1
+			}
+		],
+		"@stylistic/no-trailing-spaces": "error",
+		"@stylistic/no-whitespace-before-property": "error",
+		"@stylistic/object-curly-spacing": [ "error", "always" ],
+		"@stylistic/one-var-declaration-per-line": [ "error", "initializations" ],
+		"@stylistic/operator-linebreak": "error",
+		"@stylistic/padded-blocks": [ "warn", "never" ],
+		"@stylistic/quote-props": [ "error", "as-needed" ],
+		"@stylistic/quotes": [
+			"error",
+			"single",
+			{
+				"allowTemplateLiterals": "always",
+				"avoidEscape": true
+			}
+		],
+		"@stylistic/semi": "error",
+		"@stylistic/semi-spacing": "error",
+		"@stylistic/space-before-blocks": [ "error", "always" ],
+		"@stylistic/space-before-function-paren": [
+			"error",
+			{
+				"anonymous": "never",
+				"named": "never",
+				"asyncArrow": "always"
+			}
+		],
+		"@stylistic/space-in-parens": [
+			"error",
+			"always",
+			{
+				"exceptions": [ "empty" ]
+			}
+		],
+		"@stylistic/space-infix-ops": "error",
+		"@stylistic/space-unary-ops": [
+			"error",
+			{
+				"overrides": {
+					"!": true,
+					"yield": true
+				}
+			}
+		],
+		"@stylistic/template-curly-spacing": [ "error", "always" ],
+		"@stylistic/wrap-iife": "error",
+		"align/align-assignments": [
+			"warn",
+			{
+				"requiresOnly": false
+			}
+		],
+		"align/align-import": [ "warn" ],
+		"cosmicgiant/camelcase": [
+			"warn",
+			{
+				"properties": "never"
+			}
+		]
+	},
+	"overrides": [
+		{
+			"files": [ "**/*.test.{js,jsx}", "**/test/*.{js,jsx}" ],
+			"rules": {
+				"@wordpress/no-global-active-element": "off",
+				"@wordpress/no-global-get-selection": "off"
+			}
+		}
+	]
+}
